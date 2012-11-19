@@ -3,16 +3,16 @@ import 'dart:isolate';
 
 var charList = [" ", ".", ",", ":", ";", "i", "1", "t", "f", "L", "C", "G", "0", "8", "@"];
 
-int cli;
+int charListLength;
 int width = 100;
 int height = 75;
 int timeout = 100;
-String localMediaStream;
+LocalMediaStream localMediaStream;
 CanvasElement canvas;
 CanvasRenderingContext2D ctx;
 VideoElement video;
 DivElement ascii; 
-
+SendPort  asciiConvertPort;
 void onSuccess(stream) {
   localMediaStream = stream;
   video = query('video');
@@ -25,36 +25,26 @@ void onSuccess(stream) {
 }
 
 void onError(error) {
-
+  print("onError: danger danger!!!");
 }
 
 draw() {
   if (localMediaStream != null) {
     ctx.drawImage(video, 0, 0, width, height);
     Uint8ClampedArray data = ctx.getImageData(0,0, width, height).data;
-    List<int> l = data.getRange(0, data.length-1);
-        
-    query('#last').innerHTML = convert(data);
-    
-//    sendPort.call({"data": l}).then((reply) {
-//      query('#last').innerHTML = reply;
-//    });
+    List<int> raw_data = data.getRange(0, data.length-1);
+    asciiConvertPort.call({"raw_data": raw_data}).then((reply) {
+      query('#last').innerHTML = reply;
+    });
   }
   
   window.setTimeout(draw, timeout);
   //window.requestAnimationFrame(draw);
 }
 
-convert(data) {
-//  port.receive((msg, reply) {
-//    //print("from isolate = ${msg['data']}");
-//    var img = new Uint8ClampedArray.fromList(msg['data']);
-//    ///reply.send("data = ${msg['data'].runtimeType}");
-//    //
-//    //return; 
-//    
-    var img = data;
-    
+convert() {
+  port.receive((msg, reply) {
+    var img = new Uint8ClampedArray.fromList(msg['raw_data']);    
     var buf = new Uint8Array(15000);
     var strChars = new StringBuffer();
     for (var y = 0; y < height; y++) {
@@ -69,12 +59,12 @@ convert(data) {
         var g = img[loc+1];
         var b = img[loc+2];
         
-        var rr = (r/16).floor().toInt();
-        var gr = (g/16).floor().toInt();
-        var br = (b/16).floor().toInt();
+        var rr = (r~/16);
+        var gr = (g~/16);
+        var br = (b~/16);
         
         var bright = (0.3*r + 0.59*g + 0.11*b) / 255;
-        var idx = ((cli) - (bright * (cli)).round()).toInt();
+        var idx = ((charListLength) - (bright * (charListLength)).round()).toInt();
         
         var char = charList[idx];
         
@@ -97,20 +87,18 @@ convert(data) {
       strChars.add("\n");
     }
     
-    return strChars.toString();
-//    reply.send(strChars.toString());
-//  });
+    reply.send(strChars.toString());
+  });
 }
 
-//var sendPort;
-
 void main() {
-  cli = charList.length-1;
-  //sendPort = spawnFunction(convert);
+  charListLength = charList.length-1;
+  asciiConvertPort = spawnFunction(convert);
   ascii = query('#ascii');
-  var options = { 'video': true, "audio": true };
-  window.navigator.webkitGetUserMedia(options, onSuccess, onError);
   canvas = query("#canvas");
   ctx = canvas.getContext("2d");
+  var options = { 'video': true, "audio": true };
+  window.navigator.webkitGetUserMedia(options, onSuccess, onError);
+
 }
 
