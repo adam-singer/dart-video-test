@@ -34,7 +34,7 @@ draw() {
     Uint8ClampedArray data = ctx.getImageData(0,0, width, height).data;
     List<int> raw_data = data.getRange(0, data.length-1);
     asciiConvertPort.call({"raw_data": raw_data}).then((reply) {
-      query('#last').innerHTML = reply;
+      query('#last').innerHtml = reply;
     });
   }
   
@@ -93,7 +93,7 @@ convert() {
 
 void main() {
   charListLength = charList.length-1;
-  asciiConvertPort = spawnFunction(convert);
+  asciiConvertPort = spawnDomFunction(convert);
   ascii = query('#ascii');
   canvas = query("#canvas");
   ctx = canvas.getContext("2d");

@@ -1,8 +1,12 @@
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/constant_map.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/core_patch.dart
+file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/foreign_helper.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/interceptors.dart
+file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/isolate_helper.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/isolate_patch.dart
+file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/js_array.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/js_helper.dart
+file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/js_number.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/js_string.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/math_patch.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/_internal/compiler/implementation/lib/mirror_opt_in_message.dart
@@ -52,6 +56,11 @@ file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/core/string_buffer.dar
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/core/strings.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/core/type.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/html/dart2js/html_dart2js.dart
+file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/html/html_common/conversions.dart
+file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/html/html_common/filtered_element_list.dart
+file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/html/html_common/html_common_dart2js.dart
+file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/html/html_common/lists.dart
+file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/indexed_db/dart2js/indexed_db_dart2js.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/isolate/base.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/isolate/isolate.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/isolate/timer.dart
@@ -68,4 +77,5 @@ file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/utf/utf16.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/utf/utf32.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/utf/utf8.dart
 file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/utf/utf_core.dart
+file:///Users/adam/Documents/DartEditor/dart/dart-sdk/lib/web_audio/dart2js/web_audio_dart2js.dart
 file:///Users/adam/dart/video_test/web/video_test.dart
