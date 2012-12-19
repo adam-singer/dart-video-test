@@ -11,7 +11,7 @@ LocalMediaStream localMediaStream;
 CanvasElement canvas;
 CanvasRenderingContext2D ctx;
 VideoElement video;
-DivElement ascii; 
+DivElement ascii;
 SendPort  asciiConvertPort;
 void onSuccess(stream) {
   localMediaStream = stream;
@@ -21,7 +21,7 @@ void onSuccess(stream) {
     //window.requestAnimationFrame(draw);
     //draw(0.0);
     window.setTimeout(draw, timeout);
-  }); 
+  });
 }
 
 void onError(error) {
@@ -37,37 +37,38 @@ draw() {
       query('#last').innerHtml = reply;
     });
   }
-  
+
   window.setTimeout(draw, timeout);
   //window.requestAnimationFrame(draw);
 }
 
 convert() {
   port.receive((msg, reply) {
-    var img = new Uint8ClampedArray.fromList(msg['raw_data']);    
+    charListLength = charList.length-1;
+    var img = new Uint8ClampedArray.fromList(msg['raw_data']);
     var buf = new Uint8Array(15000);
     var strChars = new StringBuffer();
     for (var y = 0; y < height; y++) {
       var outRow = y*width*2;
       var row = outRow*2;
       for(var x = 0; x < width; x++) {
-        
+
         var loc = row+x*4;
         var outLoc = outRow+x*2;
-        
+
         var r = img[loc];
         var g = img[loc+1];
         var b = img[loc+2];
-        
+
         var rr = (r~/16);
         var gr = (g~/16);
         var br = (b~/16);
-        
-        var bright = (0.3*r + 0.59*g + 0.11*b) / 255;
+
+        var bright = (0.33*r + 0.59*g + 0.11*b) / 255;
         var idx = ((charListLength) - (bright * (charListLength)).round()).toInt();
-        
+
         var char = charList[idx];
-        
+
         strChars.add("<span style='"
         "color:rgb("
         "${rr*16}"
@@ -80,13 +81,13 @@ convert() {
         "$char"
         "$char"
         "</span>");
-        
+
         buf[outLoc] = (idx << 4) + rr;
         buf[outLoc+1] = (gr << 4) + br;
       }
       strChars.add("\n");
     }
-    
+
     reply.send(strChars.toString());
   });
 }
